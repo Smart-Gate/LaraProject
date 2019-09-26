@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    
+    @if($posts->count()>0)
             <table class="table">
                     <thead>
                       <tr>
@@ -27,10 +27,15 @@
                       @endforeach
                       
                     </tbody>
-                  </table>
-       
-       
-        
-    
+                  </table>  
 </div>
+@else
+<div class="card">
+                          
+    <div class="card-body">
+     
+      <p class="card-text">No  Posts</p>
+      
+    </div>
+@endif
 @endsection

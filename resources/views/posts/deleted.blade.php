@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    
+    @if($posts->count()>0)
             <table class="table">
                     <thead>
                       <tr>
@@ -16,6 +16,7 @@
                       </tr>
                     </thead>
                     <tbody>
+                     
                             @foreach ($posts as $post)
                       <tr>
                       <td>{{$post->title}}</td>
@@ -26,7 +27,16 @@
                       <td><a href="{{route('posts.hdelete',['id'=>$post->id])}}"><i class="fas fa-trash-alt"></i></a></td>
                       </tr>
                       @endforeach
-                      
+                      @else
+                      <div class="card">
+                          
+                          <div class="card-body">
+                           
+                            <p class="card-text">No trashed Posts</p>
+                            
+                          </div>
+                        </div>
+                      @endif
                     </tbody>
                   </table>
        
