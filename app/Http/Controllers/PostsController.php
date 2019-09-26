@@ -86,7 +86,8 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        
+        $post = Post::find($id);
+        return view('posts.edit')->with('post',$post)->with('catagory',Catagory::all());;  
     }
 
     /**
@@ -98,7 +99,31 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post =  Post::find($id);
+        $this ->validate($request,[
+            "title" => "required",
+  "content" => "required",
+  "catagory_id" => "required",
+  
+  
+        ]);
+        if($request->hasFile('feutured')){
+            $feutured = $request->feutured;
+            $featuresNewName = time().$feutured->getClientOriginalName();
+            $feutured->move('uploads/posts',$featuresNewName);
+            $post->feutured = $request->feutured;
+        }
+    
+
+        
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->slug = str_slug($request->title);
+        $post->catagory_id = $request->catagory_id;
+        $post->save();
+       
+        // dd($request->all());
+        return redirect()->route('posts');       
     }
 
     /**

@@ -30,6 +30,7 @@ Route::get('/post/restore/{id}', 'PostsController@restore')->name('posts.restore
 Route::get('/post/delete/{id}', 'PostsController@destroy')->name('posts.delete');
 Route::get('/post/trashed', 'PostsController@trashed')->name('posts.trashed');
 Route::get('/post/edit/{id}', 'PostsController@edit')->name('posts.edit');
+Route::post('/post/update/{id}', 'PostsController@update')->name('posts.update');
 //route for catagory
 Route::get('/catagory/catagories', 'CatagoryController@index')->name('catagories');
 Route::get('/catagory/create', 'CatagoryController@create')->name('catagory.create');
