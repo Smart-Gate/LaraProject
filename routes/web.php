@@ -46,3 +46,6 @@ Route::get('/tag/edit/{id}', 'TagController@edit')->name('tag.edit');
 Route::post('/tag/update/{id}', 'TagController@update')->name('tag.update');
 Route::get('/tag/delete/{id}', 'TagController@destroy')->name('tag.delete');
 });
+Route::get('/yousef', function () {
+    return App\Tag::find(1)->posts;
+});

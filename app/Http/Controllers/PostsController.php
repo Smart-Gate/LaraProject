@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Catagory;
 use App\Post;
-
+use App\Tag;
 class PostsController extends Controller
 {
      /**
@@ -31,7 +31,19 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create')->with('catagory',Catagory::all());
+        $catagories = Catagory::all();
+        $tags= Tag::all();
+
+        if($catagories->count()==0){
+           return redirect()->route('catagory.create');
+        }
+        if($tags->count()==0){
+            return redirect()->route('tag.create');
+         }
+       
+            return view('posts.create')->with('catagory',$catagories)->with('tags',$tags);
+        
+       
     }
 
     /**
@@ -47,7 +59,9 @@ class PostsController extends Controller
             "title" => "required",
   "content" => "required",
   "catagory_id" => "required",
-  "feutured" => "required|image"
+  "feutured" => "required|image",
+  "tags" => "required"
+
   
         ]);
         $feutured = $request->feutured;
@@ -60,7 +74,8 @@ class PostsController extends Controller
         "feutured" => 'uploads/posts/'.$featuresNewName,
         "slug" => str_slug($request->title)
         ]);
-        // dd($request->all());
+        $post->tags()->attach($request->tags);
+        //  dd($request->all());
         return redirect()->back();
         
 

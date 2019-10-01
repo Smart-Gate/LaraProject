@@ -16,7 +16,7 @@ class Post extends Model
     public function getFeuturedAttribute($feutured) {
         return asset($feutured);
     }
-    public function posts() {
+    public function catagory() {
         return $this ->belongsTo('App\Catagory');
     }
     public function tags() {
